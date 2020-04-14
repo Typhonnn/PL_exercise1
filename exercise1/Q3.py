@@ -1,14 +1,14 @@
 class A:
-    def __init__(self):
-        print("A.__init__")
+    # def __init__(self):
+    #     print("A.__init__")
 
     def m(self):
         print("m of A called")
 
 
 class B(A):
-    # def __init__(self):
-    #     print(super())
+    def __init__(self):
+        print(super())
 
     def m(self):
         print("m of B called")

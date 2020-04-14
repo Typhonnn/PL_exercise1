@@ -15,6 +15,7 @@ class GeometricShape:
 
 class Circle(GeometricShape):
     def __init__(self, radius):
+        self.radius = radius
         area = math.pi * radius * radius
         perimeter = 2 * math.pi * radius
         super().__init__(area, perimeter)
@@ -25,6 +26,9 @@ class Circle(GeometricShape):
 
 class Triangle(GeometricShape):
     def __init__(self, a, b, c):
+        self.a = a
+        self.b = b
+        self.c = c
         s = (a + b + c) / 2
         area = math.sqrt(s * (s - a) * (s - b) * (s - c))
         perimeter = a + b + c
@@ -36,6 +40,8 @@ class Triangle(GeometricShape):
 
 class Rectangle(GeometricShape):
     def __init__(self, a, b):
+        self.a = a
+        self.b = b
         area = a * b
         perimeter = 2 * a + 2 * b
         super().__init__(area, perimeter)
@@ -46,24 +52,25 @@ class Rectangle(GeometricShape):
 
 class Square(Rectangle):
     def __init__(self, a):
+        self.a = a
         super().__init__(a, a)
 
     def __repr__(self):
         return "Square: %s" % (GeometricShape.__repr__(self))
 
 
-def main():
-    user_shape = input("Choose The Shape by Typing The Number:\n1.Circle\n2.Triangle\n3.Rectangle\n4.Square\n")
-    if user_shape == '1':
-        print(Circle(float(input("Enter Radius: "))))
-    elif user_shape == '2':
-        print(Triangle(float(input("Enter Side 1: ")), float(input("Enter Side 2: ")), float(input("Enter Side 3: "))))
-    elif user_shape == '3':
-        print(Rectangle(float(input("Enter Long Side: ")), float(input("Enter Short Side: "))))
-    elif user_shape == '4':
-        print(Square(float(input("Enter Side: "))))
-    else:
-        print("Invalid Number Entered")
+"""Asking the user for input"""
+user_shape = input("Choose The Shape by Typing The Number:\n1.Circle\n2.Triangle\n3.Rectangle\n4.Square\n")
+if user_shape == '1':
+    print(Circle(float(input("Enter Radius: "))))
+elif user_shape == '2':
+    print(Triangle(float(input("Enter Side 1: ")), float(input("Enter Side 2: ")), float(input("Enter Side 3: "))))
+elif user_shape == '3':
+    print(Rectangle(float(input("Enter Long Side: ")), float(input("Enter Short Side: "))))
+elif user_shape == '4':
+    print(Square(float(input("Enter Side: "))))
+else:
+    print("Invalid Number Entered")
 
 
 class TestGeometricShapes(unittest.TestCase):

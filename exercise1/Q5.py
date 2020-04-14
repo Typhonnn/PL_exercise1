@@ -45,8 +45,7 @@ class BookKey:
     @classmethod
     def from_book(cls, book):
         """A factory method that constructs a key from a book"""
-        
-        raise NotImplementedError
+        return cls(book.title, book.author)
 
     def __eq__(self, other):
         raise NotImplementedError
@@ -99,11 +98,15 @@ class Library:
     """
 
     def __init__(self):
-        raise NotImplementedError
+        self.library_books = []
+        self.index = {}
 
     def add_book(self, book):
         """Adds a book to the library
         Note that this should wrap the Book in a LibraryBook"""
+        i = len(self.library_books)
+        self.library_books.append(book)
+        self.index[from_book(book)] = i
         raise NotImplementedError
 
     def get_book(self, title, author):
