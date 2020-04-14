@@ -48,13 +48,15 @@ class BookKey:
         return cls(book.title, book.author)
 
     def __eq__(self, other):
-        raise NotImplementedError
+        if isinstance(other, BookKey):
+            return (self.title, self.author) == (other.title, other.author)
 
     def __ne__(self, other):
-        raise NotImplementedError
+        if isinstance(other, BookKey):
+            return (self.title, self.author) != (other.title, other.author)
 
     def __hash__(self):
-        raise NotImplementedError
+        return hash((self.title, self.author))
 
 
 class LibraryBook:
@@ -68,14 +70,17 @@ class LibraryBook:
     """
 
     def __init__(self, book, qty, available_qty):
-        raise NotImplementedError
+        self.book = book
+        self.qty = qty
+        self.available_qty = available_qty
 
     def __repr__(self):
         return "LibraryBook(%s)" % self.__dict__
 
     def inc(self):
         """Add another copy to an existing LibraryBook"""
-        raise NotImplementedError
+        self.qty += 1
+        self.available_qty += 1
 
 
 class LibraryBookIter:
@@ -83,9 +88,11 @@ class LibraryBookIter:
     It iterates over the available books, skipping over books whose copies were all checked out"""
 
     def __init__(self, library):
-        raise NotImplementedError
+        self.library = library
 
     def __next__(self):
+        if self.library.library_books[].available_qty > 0:
+            return self.library.library_books
         raise NotImplementedError
 
 
@@ -105,14 +112,14 @@ class Library:
         """Adds a book to the library
         Note that this should wrap the Book in a LibraryBook"""
         i = len(self.library_books)
-        self.library_books.append(book)
-        self.index[from_book(book)] = i
-        raise NotImplementedError
+        self.library_books.append(LibraryBook(book, 1, 1))
+        self.index[BookKey.from_book(book).__hash__()] = i
 
     def get_book(self, title, author):
         "Returns a book given a title and author"
         # Note that this should use the index to get O(1) average case behavior
-        raise NotImplementedError
+        index = self.index[BookKey(title, author).__hash__()]
+        return self.library_books[index]
 
     def checkout(self, title, author):
         """checks out a book from the library

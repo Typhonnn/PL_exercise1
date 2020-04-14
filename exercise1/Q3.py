@@ -7,8 +7,8 @@ class A:
 
 
 class B(A):
-    def __init__(self):
-        print(super())
+    # def __init__(self):
+    #     print(super())
 
     def m(self):
         print("m of B called")
