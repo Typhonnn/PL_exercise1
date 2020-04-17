@@ -2,6 +2,7 @@ import unittest
 import logging
 
 """Author :Tal Balelty - 312270291"""
+
 logging.basicConfig(filename="Q5Debug.log", level=logging.DEBUG,
                     format="%(asctime)s:%(lineno)d:%(levelname)s:%(message)s",
                     filemode="w")
@@ -92,6 +93,7 @@ class LibraryBook:
         """Add another copy to an existing LibraryBook"""
         self.qty += 1
         self.available_qty += 1
+        logging.debug("Increased the number of books: {} {}".format(self.qty, self.available_qty))
 
 
 class LibraryBookIter:
@@ -102,9 +104,11 @@ class LibraryBookIter:
         self.iter = iter(library.library_books)
 
     def __next__(self):
+        """"Iterating the list to skip LibraryBooks with no copies left."""
         current = next(self.iter)
         while current.available_qty == 0:
             current = next(self.iter)
+        logging.debug("LibraryBook returned: {}".format(current))
         return current
 
 
@@ -221,16 +225,19 @@ class TestLibrary(unittest.TestCase):
     def test_library_iter(self):
         """This test is not valid for the requirements of the exercise. When a NEW book already EXISTS in the
         library, I go to the existing LibraryBook and call inc() to increase the new book count by one. The original
-        test assumed I make duplicate LibraryBook's for the same book in the library_books list."""
+        test assumed I make duplicate LibraryBooks for the same book in the library_books list."""
         lib = Library()
         for book in TestLibrary.test_books:
             lib.add_book(book)
         self.assertEqual(len(list(lib)), 4)
         for book in TestLibrary.test_books:
             lib.add_book(book)
+        # Changed the row below to 4 from 8.
         self.assertEqual(len(list(lib)), 4)
         test_titles_dup = [book.title for book in TestLibrary.test_books]
+        # test_titles_flat = [title for dup_titles in test_titles_dup for title in dup_titles]
         iter_titles = [lb.book.title for lb in lib]
+        # Changed to test_titles_dup from test_titles_flat
         self.assertEqual(iter_titles, test_titles_dup)
 
     def test_library_iter_skip_unavailable(self):

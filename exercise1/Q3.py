@@ -1,3 +1,6 @@
+"""Author: Tal Balelty - 312270291"""
+
+
 class A:
     # def __init__(self):
     #     print("A.__init__")
@@ -30,8 +33,8 @@ class D(B, C):
         b = B()
         b.m()
         C.m(self)
-        super().m()
-        # A.__init__(self)
+        # super().m()
+        A.__init__(self)
 
 
 d = D()

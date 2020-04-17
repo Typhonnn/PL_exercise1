@@ -1,6 +1,8 @@
 import enum
 import logging
 
+"""Author: Tal Balelty - 312270291"""
+
 logging.basicConfig(filename="Q4Debug.log", level=logging.DEBUG,
                     format="%(asctime)s:%(lineno)d:%(levelname)s:%(message)s", filemode="w")
 
