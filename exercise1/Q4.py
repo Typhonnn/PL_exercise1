@@ -68,29 +68,25 @@ def create_tiger():
 
 
 def count_animals(animals):
+    """Counts the different types of animals"""
     count_cats = 0
     count_tigers = 0
     for ani in animals:
-        if ani is HouseCat:
+        if isinstance(ani, HouseCat):
             count_cats += 1
         else:
             count_tigers += 1
     print("Cats: {}\nTigers: {}".format(count_cats, count_tigers))
 
 
-cat = HouseCat("Gorge", 4, "12/03/2015", 1, 5, "15/04/2020")
-print(cat)
-tiger = Tiger("Tiger", 4, "15/07/2018", 1, 10)
-print(tiger)
-
+user_animals = []
 while True:
     print("To Create New Animal Choose:\n1. House Cat\n2. Tiger\nTap any key to exit.")
     choose = input()
-    animals = []
     if choose == '1':
-        animals.append(create_house_cat())
+        user_animals.append(create_house_cat())
     elif choose == '2':
-        animals.append(create_tiger())
+        user_animals.append(create_tiger())
     else:
-        count_animals(animals)
+        count_animals(user_animals)
         exit(0)

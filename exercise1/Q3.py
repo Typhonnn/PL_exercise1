@@ -30,7 +30,7 @@ class D(B, C):
         b = B()
         b.m()
         C.m(self)
-        # super().m()
+        super().m()
         # A.__init__(self)
 
 
